@@ -1,7 +1,1 @@
-interface Main {
-    static void main(String[] x) {
-        var s = new java.util.Scanner(System.in);
-        int a = s.nextInt(), b = s.nextInt(), c = a * 60 + b - 45;
-        System.out.println(c < 0 ? 23 + " " + (60 + c % 60) : c / 60 + " " + c % 60);
-    }
-}
+interface Main{static void main(String[]x){var s=new java.util.Scanner(System.in);int a=s.nextInt(),b=s.nextInt(),d=60,c=a*d+b-45,e=c%d;System.out.println(c<0?23+" "+(d+e):c/d+" "+e);}}

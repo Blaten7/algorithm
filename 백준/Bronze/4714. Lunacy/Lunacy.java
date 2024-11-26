@@ -1,0 +1,1 @@
+interface Main{static void main(String[]x){var s=new java.util.Scanner(System.in);for(double a;(a=s.nextDouble())>0;)System.out.printf("Objects weighing %.2f on Earth will weigh %.2f on the moon.\n",a,a*0.167);}}

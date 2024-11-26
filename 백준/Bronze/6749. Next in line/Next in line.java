@@ -1,0 +1,1 @@
+interface Main{static void main(String[]x){var s=new java.util.Scanner(System.in);System.out.print(-s.nextInt()+2*s.nextInt());}}

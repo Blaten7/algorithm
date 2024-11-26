@@ -1,0 +1,1 @@
+interface Main{static void main(String[]x){System.out.print((new java.util.Scanner(System.in).nextInt()+4)/5);}}

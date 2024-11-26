@@ -1,0 +1,1 @@
+interface Main{static void main(String[]x){var s=new java.util.Scanner(System.in);int k=2000,l[]={k,k},i=0;while(i++<5)l[i/4]=Math.min(l[i/4],s.nextInt());System.out.print(l[0]+l[1]-50);}}

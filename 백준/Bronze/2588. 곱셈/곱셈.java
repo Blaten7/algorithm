@@ -1,14 +1,1 @@
-interface Main {
-    static void main(String[] x) {
-        var s = new java.util.Scanner(System.in);
-        int a = s.nextInt(), b[] = new int[3], i = 2, n = s.nextInt(), c = n;
-        for (; i >= 0; i--) {
-            b[i] = n % 10;
-            n /= 10;
-        }
-        for (i=2; i >=0; i--) {
-            System.out.println(a*b[i]);
-        }
-        System.out.print(a*c);
-    }
-}
+interface Main{static void main(String[]x){var s=new java.util.Scanner(System.in);int a=s.nextInt(),n=s.nextInt(),c=n,i=3;for(;i-->0;n/=10)System.out.println(a*(n%10));System.out.print(a*c);}}

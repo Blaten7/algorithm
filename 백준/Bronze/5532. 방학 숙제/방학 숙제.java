@@ -1,0 +1,1 @@
+interface Main{static void main(String[]x){var s=new java.util.Scanner(System.in);int L=s.nextInt(),A=s.nextInt(),B=s.nextInt(),C=s.nextInt(),D=s.nextInt();System.out.println(L-Math.max((A+C-1)/C,(B+D-1)/D));}}

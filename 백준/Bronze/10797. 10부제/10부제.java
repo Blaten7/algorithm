@@ -1,0 +1,1 @@
+interface Main{static void main(String[]x){var s=new java.util.Scanner(System.in);var a=s.nextLine();System.out.print(s.nextLine().split(a,-1).length-1);}}

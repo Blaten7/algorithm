@@ -1,0 +1,1 @@
+interface Main{static void main(String[]x){var s=new java.util.Scanner(System.in);int a=s.nextInt(),b=s.nextInt();System.out.print(a<b|(a+b)%2>0?-1:(a+b)/2+" "+(a-b)/2);}}

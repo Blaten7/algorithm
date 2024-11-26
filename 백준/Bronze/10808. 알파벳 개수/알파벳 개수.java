@@ -1,0 +1,1 @@
+interface Main{static void main(String[]x){var b=new int[26];for(char c:new java.util.Scanner(System.in).next().toCharArray())b[c-'a']++;for(int d:b)System.out.print(d+" ");}}

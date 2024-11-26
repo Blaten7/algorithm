@@ -1,0 +1,1 @@
+import java.time.*;interface Main{static void main(String[]x){var d=ZonedDateTime.now(ZoneId.of("UTC"));System.out.print(d.getYear()+"\n"+d.getMonthValue()+"\n"+d.getDayOfMonth());}}

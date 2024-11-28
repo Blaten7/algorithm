@@ -1,27 +1,87 @@
 import java.util.LinkedList;
 import java.util.Queue;
+/*
+# 문제 해석 : 1부터 입력정수까지 순서에서 그다음 입력인 인덱스 받아서 삭제 하고 출력 그니까 poll 쓰면 될듯 없을때까지 계속
+
+# 로직 : 큐로 집어 넣고, 특정 인덱스 삭제, 초과 시 로직은 하면서 생각.
+      - 예제 7 3 입력시
+      - 0회 7 6 5 4 3 2 1 / 3 추출
+      - 1회 2 1 7 6 5 4   / 6 추출
+      - 2회 5 4 2 1 7     / 2 추출
+      - 3회 1 7 5 4       / 7 추출
+      - 4회 5 4 1         / 5 추출
+      - 5회 4 1           / 1 추출 if (index > q.size()) => index - q.size() 의 인덱스를 제거
+      - 6회 4             / 4 추출 if (q.size() == 1) q.poll()
+
+      -- 문제 1 [해결]
+      - poll 사용시 제일 앞에가 빠지는게 아니라 최근값이 나옴
+      - 그게 아님. 입력값 --> 0 을 했기 때문에 1 2 3 4... N 순서로 넣은게 아니라
+      - N ... 2 3 1 순으로 들어간거임.
+      - 입력구조 뒤집기 필요
+
+      -- 문제 2 [해결]
+      - 뺄 인덱스와 현재 큐 길이가 같을때 빼서 더해주는 거 없이 바로 빼려고 했는데
+      - 이건 최초 로직에서 바꾼거 생각 안해서 그런거였고
+      - 그래서 같을때도 빼서 더해준다음 빼는걸로 바꿈. 최초 조건문 3개에서 2개로변경 ㅇㅇ
+      - 근데 ? 그렇게 하면 그냥 처음부터 박살남 ㅋㅋ 왜지?
+      - 아.. 조건을 변경한게 아니라 반복문 조건을 만지작 거리고 있었네;;;
+
+      -- 문제 3 [해결]
+      - 진짜 다왔음, 출력조건 <> 과 ", "로 구분된 정수 조건을 맞추기 위해서 추가.
+
+      -- 문제 4 [해?결]
+      - 맞왜틀???????????????????????????????????
+      - 백준은 크기가 큰 값부터 테스트 함.
+      - 따라서 퍼센테이지가 초반부에서 에러가 났다면, 큰 값 처리가 안되는거고
+      - 반대는 반대다.
+      - 나는 70% 부근에서 에러가 남.
+      - 5000짜리도 통과를 했는데 작은수에서 에러 난다?
+      - 그래서 GPT로 반례 만들고 해당 결과 테스트 해봤는데
+      - (1 ≤ K ≤ N ≤ 500) 이 조건에서도 결과 정상.
+      - 그래서 맞왜틀?
+      - 반복 테스트 하다가 현재 남은 큐의 개수에 상관 없이
+      - 항상 같은 로직으로 처리가 가능하다는 걸 알았음.
+      - 그래서 아무생각없이 같은걸로 했더니 통과함
+      - ??? 뭔차인데 그래서. 
+
+# 출력 : 각 반복의 인덱스에 해당하는 숫자 연속 출력 <, , , , ...>
+      - 근데 출력이 [3, 6, 2, 7, 5, 1, 4] 이렇게 나올텐데.
+      - 이 문제의 출력조건은 <> 이건데..?
+      - 일단 [] 로 해보고 안되면 바꾸는 걸로.
+ */
 
 interface Main {
     static void main(String[] x) {
         var s = new java.util.Scanner(System.in);
 
-        int a = s.nextInt(); // 총 숫자 개수
-        int index = s.nextInt(); // 제거할 인덱스
+        int a = s.nextInt();
+        int index = s.nextInt();
 
-        Queue<Integer> q = new LinkedList<>();
-        for (int i = 1; i <= a; i++) { 
-            q.offer(i); // 1부터 a까지 숫자 추가
+        Queue<Integer> q = new LinkedList<Integer>();
+        for (int i = 1; i <= a; i++) {
+            q.offer(i);
         }
 
+//        while (a--> 1) q.offer(a); // a-1번부터 1번까지. 입력이 7이면 그냥 7그대로 ㅇㅇ
         System.out.print("<");
+//        while (!q.isEmpty()) {
+//            if (q.size() >= index) { // 현재 남은 숫자가 인덱스보다 크다면, 아무 생각없이 인덱스 빼주면 됨.
+//                for (int i = 0; i < index - 1; i++) {
+//                    q.offer(q.poll());
+//                }
+//                System.out.print(q.poll() + ", ");
+//            } else { // 현재 남은 숫자가 인덱스보다 작다면,
+//                for (int i = 0; i < index - q.size() - 1; i++) {
+//                    q.offer(q.poll());
+//                }
+//                System.out.print(q.size() > 1 ? q.poll() + ", " : q.poll());
+//            }
+//        }
         while (!q.isEmpty()) {
-            for (int i = 0; i < index - 1; i++) { 
-                q.offer(q.poll()); // 인덱스에 맞게 순서 회전
+            for (int i = 0; i < index - 1; i++) {
+                q.offer(q.poll());
             }
-            System.out.print(q.poll()); // 현재 인덱스 요소 출력
-            if (!q.isEmpty()) { // 큐가 비어있지 않으면 쉼표 추가
-                System.out.print(", ");
-            }
+            System.out.print(q.size() > 1 ? q.poll() + ", " : q.poll());
         }
         System.out.print(">");
     }

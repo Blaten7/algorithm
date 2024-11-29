@@ -1,4 +1,5 @@
 import java.io.*;
+import java.math.BigInteger;
 
 /*
 # 문제 해석 : 음.. 저게 시그마처럼 생긴건 알겠는데 ㅋㅋ
@@ -12,7 +13,17 @@ import java.io.*;
       - 입력받은 문자열을 한자씩 쪼개서 숫자로 바꿈. // abcde - > 12345
       - 그다음에 계산.
 
-# 출력 :
+
+# 이슈 :
+        - 문제 1 []
+        - 부분성공.
+        - Small - > 정상 처리
+        - Large - > 에러 발생.
+        - Math.pow()가 기본적으로 double 이니 합계 값 또한 double 타입으로 바꾸어 시도.
+        - long - > 50점..
+        - BigInteger 타입과 BigInteger.multiply, BigInteger.pow - > 50점
+        - 이유가 뭘까?
+        - 그래도 50점.
  */
 
 interface Main {
@@ -23,10 +34,11 @@ interface Main {
         String input = br.readLine();
 
         int i = 0;
-        int sum = 0;
+        BigInteger sum = BigInteger.ZERO;
         for (char c : input.toCharArray()) {
             int num = (c - 'a') +1; // 'a'는 1, 'b'는 2, 'c'는 3으로 변환
-            sum += (num * Math.pow(31, i)); // 여긴 왜 int 강제 형변환 해야하는지 전혀 모르겠는데 에러가 뜸 (노란색)
+            BigInteger term = BigInteger.valueOf(num).multiply(BigInteger.valueOf(31).pow(i));
+            sum = sum.add(term).mod(BigInteger.valueOf(1234567891));
             i++;
         }
         System.out.println(sum);
